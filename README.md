@@ -478,6 +478,63 @@ matchers:
     words: ["vendor-login-bg"]
 ```
 
+**6. Incorrect Status Code Logic**
+```yaml
+# BAD - Redundant and contradictory status codes
+matchers:
+  - type: status
+    status:
+      - 200
+      - 401
+      - 403
+      - 404
+
+# GOOD - Specific and intentional
+# For publicly accessible pages:
+- type: status
+  status:
+    - 200
+
+# For pages requiring authentication:
+- type: status
+  status:
+    - 401
+    - 403
+  condition: or
+```
+
+**7. Redundant Word Matchers**
+```yaml
+# BAD - Unnecessary words with case-insensitivity
+- type: word
+  words: ["PRINTAPI", "PrintAPI", "Print API", "printapi"]
+  case-insensitive: true
+
+# GOOD - Clean and efficient
+- type: word
+  words: ["printapi"]
+  case-insensitive: true
+```
+
+**8. Overusing DSL Matchers**
+```yaml
+# BAD - Using DSL for simple string matching
+- type: dsl
+  dsl:
+    - "contains(body, 'Product Login')"
+
+# GOOD - Using the right tool for the job
+- type: word
+  words:
+    - "Product Login"
+  part: body
+
+# GOOD - Using DSL for its intended purpose (e.g., length checks)
+- type: dsl
+  dsl:
+    - "len(body) > 1000 && len(body) < 1500"
+```
+
 ## Best Practices
 
 ### 1. Research Methodology
