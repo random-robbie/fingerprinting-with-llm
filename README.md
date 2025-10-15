@@ -375,6 +375,10 @@ http:
         name: product_title
 ```
 
+**Important Note on References:** The `reference` field should never be a link to a target instance. Instead, it should point to a stable, official resource about the technology being detected, such as vendor documentation, a product page, or a relevant Wikipedia article.
+
+**Description Field:** The `description` field should provide a concise overview of the detected software, including its purpose and key features, in approximately three sentences or a short paragraph.
+
 ## Skeleton Template Example
 
 This is a good example of a skeleton template for Nuclei.
