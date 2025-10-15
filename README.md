@@ -408,7 +408,7 @@ http:
   - method: GET
 
     path:
-      - '{{BaseURL}}p'
+      - '{{BaseURL}}'
 
     redirects: false
     host-redirects: true
