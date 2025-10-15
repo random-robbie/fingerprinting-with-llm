@@ -375,6 +375,72 @@ http:
         name: product_title
 ```
 
+## Skeleton Template Example
+
+This is a good example of a skeleton template for Nuclei.
+
+```yaml
+id: 
+
+info:
+  name: 
+  author: Robbie
+  description: 
+  severity: low
+  reference:
+    - https://www.example.com
+  classification:
+    cpe:
+    cvss-metrics:
+    cvss-score:
+    cve-id:
+    cwe-id:
+  metadata:
+    vendor:
+    product:
+    type:
+    impact: low
+    max-request: 2
+    kev: false
+  tags: 7days
+
+http:
+  - method: GET
+
+    path:
+      - '{{BaseURL}}p'
+
+    redirects: false
+    host-redirects: true
+    matchers-condition: and
+    stop-at-first-match: false
+    matchers:
+      - type: word
+        name:
+        part: body
+        case-insensitive: false
+        words:
+          - ''
+        condition: and
+        negative: false
+
+      - type: word
+        name:
+        part: body
+        case-insensitive: false
+        words:
+          - ''
+        condition: and
+        negative: false
+
+      - type: status
+        name:
+        status:
+          - 200
+        condition: and
+        negative: false
+```
+
 ## Validation and Testing
 
 ### 1. Positive Validation
