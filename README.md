@@ -379,6 +379,36 @@ http:
 
 **Description Field:** The `description` field should provide a concise overview of the detected software, including its purpose and key features, in approximately three sentences or a short paragraph.
 
+**Vendor and Product Naming Requirements:**
+- Both `vendor` and `product` fields in metadata must be **all lowercase**
+- **Replace spaces with underscores** (`_`)
+- **Leading slashes are not valid** - do not use formats like `/something`
+- Examples:
+  - ✅ `vendor: fortinet`, `product: fortigate`
+  - ✅ `vendor: vmware`, `product: vcenter_server`
+  - ✅ `vendor: palo_alto_networks`, `product: globalprotect`
+  - ❌ `vendor: Fortinet`, `product: FortiGate`
+  - ❌ `vendor: VMware`, `product: vCenter Server`
+  - ❌ `vendor: /fortinet`, `product: /fortigate`
+
+**Type Field Classification:**
+The `type` field in metadata indicates the detection method and purpose, which also determines the appropriate `severity` and `impact` levels:
+
+- **`fingerprint`**: Template only identifies/detects the system without exploiting anything
+  - Example: Detecting a login page, identifying software version, recognizing product branding
+  - Severity: **low**
+  - Impact: **low**
+
+- **`indicator`**: Template identifies something related to a CVE but does not exploit it
+  - Example: Detecting a vulnerable version, checking for presence of unpatched software
+  - Severity: **medium**
+  - Impact: **medium**
+
+- **`vulnerability`**: Template actively exploits a vulnerability to confirm its existence
+  - Example: Executing a payload, triggering vulnerable code paths, demonstrating exploitability
+  - Severity: **critical**
+  - Impact: **critical**
+
 ## Skeleton Template Example
 
 This is a good example of a skeleton template for Nuclei.
