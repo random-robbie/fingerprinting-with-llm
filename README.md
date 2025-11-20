@@ -322,49 +322,77 @@ id: vendor-product-detect
 info:
   name: Vendor Product Detection
   author: security-researcher
-  severity: info
   description: Detects Vendor Product using unique identifiers
+  severity: low
   reference:
     - https://vendor.com/product
   classification:
+    cpe: cpe:2.3:a:vendor:product:*:*:*:*:*:*:*:*
+    cvss-metrics:
+    cvss-score:
+    cve-id:
     cwe-id: CWE-200
+  metadata:
+    vendor: vendor_name
+    product: product_name
+    type: fingerprint
+    impact: low
+    max-request: 2
+    kev: false
   tags: vendor,product,category,fingerprint
 
 http:
   - method: GET
+
     path:
       - "{{BaseURL}}/login"
 
+    redirects: false
+    host-redirects: true
+    matchers-condition: and
+    stop-at-first-match: false
     matchers:
       - type: word
+        name: "primary-brand-identifier"
+        part: body
+        case-insensitive: false
         words:
           - "Vendor Product Name"
-        part: body
-        name: "primary-brand-identifier"
+        condition: and
+        negative: false
 
       - type: word
+        name: "unique-asset-path"
+        part: body
+        case-insensitive: false
         words:
           - "/vendor/assets/"
-        part: body
-        name: "unique-asset-path"
+        condition: and
+        negative: false
 
       - type: word
+        name: "unique-css-class"
+        part: body
+        case-insensitive: false
         words:
           - "vendor-specific-class"
-        part: body
-        name: "unique-css-class"
+        condition: and
+        negative: false
 
       - type: regex
+        name: "vendor-specific-pattern"
         regex:
           - "vendor-pattern-[a-f0-9]{8}"
         part: body
-        name: "vendor-specific-pattern"
+        condition: and
+        negative: false
 
-      - type: word
-        words:
-          - "vendor-error-format"
-        part: body
-        name: "error-message-format"
+      - type: status
+        name: "status-check"
+        status:
+          - 200
+        condition: and
+        negative: false
 
     extractors:
       - type: regex
