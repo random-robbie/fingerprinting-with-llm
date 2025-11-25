@@ -407,6 +407,20 @@ http:
 
 **Description Field:** The `description` field should provide a concise overview of the detected software, including its purpose and key features, in approximately three sentences or a short paragraph.
 
+**YAML Formatting Requirements:**
+- **CVSS Score Format:** The `cvss-score` field must be an **integer** (number), not a string. Do NOT use quotes around it.
+  - ✅ Correct: `cvss-score: 5`
+  - ❌ Incorrect: `cvss-score: "5"`
+  - ❌ Incorrect: `cvss-score: "5.0"`
+- **Blank Keys:** It is perfectly acceptable (and required) to have blank/empty keys in the template YAML structure. These keys must be present even if they have no value.
+  - ✅ Correct:
+    ```yaml
+    cvss-metrics:
+    cvss-score:
+    cve-id:
+    ```
+  - ❌ Incorrect: Omitting these keys entirely
+
 **Vendor and Product Naming Requirements:**
 - Both `vendor` and `product` fields in metadata must be **all lowercase**
 - **Replace spaces with underscores** (`_`)
